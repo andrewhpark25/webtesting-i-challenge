@@ -1,7 +1,7 @@
 const enhancer = require('./enhancer.js');
 // test away!
 
-const {repair, succeed, fail} = require('./enhancer.js');
+const {repair, succeed, fail, get} = require('./enhancer.js');
 describe('enhancer', () => {
     describe('repair()', () => {
         it('durability restored to 100', () => {
@@ -33,6 +33,18 @@ describe('enhancer', () => {
         it('enhancement equal to 15, durability decreased by 10', () => {
             expect(fail({name: "evolve stone", enhancement: 15, durability:50})).toEqual({name: "evolve stone", enhancement: 15, durability:40})
         })
+      
+    })
+
+    describe('get()', () => {
+        it('no enhancement, no name change', () => {
+            expect(get({name: "shield", enhancement: 0, durability:50})).toEqual({name:"shield", enhancement: 0, durability:50})
+        })
+
+        it('enhancement more than 0, enhancement displayed with plus sign next to name', () => {
+            expect(get({name: "crystal", enhancement: 1, durability:80})).toEqual({name: "[+1]crystal", enhancement: 1, durability:80})
+        })
+      
       
     })
 })
